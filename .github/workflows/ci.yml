@@ -29,13 +29,13 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: clippy}
       - run: cargo clippy
-#  formatting:
-#    runs-on: ubuntu-latest
-#    strategy:
-#    matrix:
-#      rust: [beta]
-#    steps:
-#    - uses: actions/checkout@v2
-#    - uses: actions-rs/toolchain@v1
-#      with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: rustfmt}
-#    - run: cargo fmt --check
+  formatting:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [beta]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: clippy}
+      - run: cargo fmt --check
