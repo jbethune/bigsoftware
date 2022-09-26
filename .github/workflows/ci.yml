@@ -1,0 +1,41 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+name: CI
+env:
+  CARGO_TERM_COLOR: always
+  HOST: x86_64-unknown-linux-gnu
+  RUSTFLAGS: "-D warnings"
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable, beta, nightly]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true}
+      - run: cargo test
+  clippy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [beta]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: clippy}
+      - run: cargo clippy
+  formatting:
+    runs-on: ubuntu-latest
+    matrix:
+      rust: [beta]
+      steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: rustfmt}
+      - run: cargo fmt --check
+
