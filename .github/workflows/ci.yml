@@ -31,6 +31,7 @@ jobs:
       - run: cargo clippy
   formatting:
     runs-on: ubuntu-latest
+    strategy:
     matrix:
       rust: [beta]
       steps:
