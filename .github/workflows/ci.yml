@@ -34,9 +34,8 @@ jobs:
     strategy:
     matrix:
       rust: [beta]
-      steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: rustfmt}
-      - run: cargo fmt --check
-
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with: {profile: minimal, toolchain: '${{ matrix.rust }}', override: true, components: rustfmt}
+    - run: cargo fmt --check
