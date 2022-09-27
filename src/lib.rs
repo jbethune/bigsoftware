@@ -3,7 +3,6 @@
 //! A lot of people are supposed to work together on building this.
 //!
 
-
 #![deny(missing_docs)]
 #![deny(clippy::doc_markdown)]
 
