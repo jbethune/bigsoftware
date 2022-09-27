@@ -93,7 +93,7 @@ mod tests {
     fn test_sorting() {
         let mut tasks = vec![
             Todo::new(
-                "Prepare ​ talk",
+                "Prepare talk",
                 "Talk about CI",
                 Urgency::ExtremlyUrgent,
                 false,
