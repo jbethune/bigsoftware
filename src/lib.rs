@@ -5,8 +5,11 @@
 //! Let's break the docstring
 //!
 //! (foo)[bar.html]
+//!
+//! ```
 
 #![deny(missing_docs)]
+#![deny(clippy::doc_markdown)]
 
 use std::cmp::Ordering;
 
@@ -15,7 +18,7 @@ use std::cmp::Ordering;
 pub struct Todo {
     // TODO add assigned user
     title: String,
-description: String,
+    description: String,
     urgency: Urgency,
 }
 
