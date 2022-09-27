@@ -14,7 +14,7 @@
 use std::cmp::Ordering;
 
 /// A task that needs to be done
-#[derive(PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Todo {
     // TODO add assigned user
     title: String,
@@ -85,6 +85,7 @@ impl PartialOrd for Todo {
 }
 
 /// A list of TODO items
+#[derive(Debug, Clone, Default)]
 pub struct TodoList {
     items: Vec<Todo>,
 }
@@ -92,7 +93,7 @@ pub struct TodoList {
 impl TodoList {
     /// Create a new list
     pub fn new() -> Self {
-        Self { items: vec![] }
+        Self::default()
     }
 
     /// Add a task to the list
@@ -104,12 +105,6 @@ impl TodoList {
     /// Get the most urgent task right now
     pub fn get_task(&mut self) -> Option<Todo> {
         self.items.pop()
-    }
-}
-
-impl Default for TodoList {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
