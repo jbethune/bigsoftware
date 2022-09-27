@@ -101,8 +101,7 @@ impl Display for TodoList {
         writeln!(f, "Here are all of your tasks")?;
         self.items
             .iter()
-            .map(|todo| writeln!(f, "{todo:?}"))
-            .collect()
+            .try_for_each(|todo| writeln!(f, "{todo:?}"))
     }
 }
 
