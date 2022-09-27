@@ -9,6 +9,7 @@
 //! ```
 
 #![deny(missing_docs)]
+#![deny(clippy::doc_markdown)]
 
 use std::cmp::Ordering;
 
