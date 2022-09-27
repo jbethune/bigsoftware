@@ -2,11 +2,7 @@
 //!
 //! A lot of people are supposed to work together on building this.
 //!
-//! Let's break the docstring
-//!
-//! (foo)[bar.html]
-//!
-//! ``` 
+
 
 #![deny(missing_docs)]
 #![deny(clippy::doc_markdown)]
