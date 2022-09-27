@@ -14,7 +14,7 @@
 use std::cmp::Ordering;
 
 /// A task that needs to be done
-#[derive(PartialEq, Eq)]
+#[derive(Debug, Default, PartialEq, Eq, Clone)]
 pub struct Todo {
     // TODO add assigned user
     title: String,
@@ -34,10 +34,11 @@ impl Todo {
 }
 
 /// Describe  how urgently something needs to be done
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 pub enum Urgency {
     // TODO more variants, TODO maybe different ordering?
     /// No deadline
+    #[default]
     NonExisting,
     /// Should be done evenually
     Low,
@@ -85,6 +86,7 @@ impl PartialOrd for Todo {
 }
 
 /// A list of TODO items
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct TodoList {
     items: Vec<Todo>,
 }
