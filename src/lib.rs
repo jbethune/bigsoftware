@@ -6,7 +6,7 @@
 #![deny(missing_docs)]
 #![deny(clippy::doc_markdown)]
 
-use std::cmp::Ordering;
+use std::{cmp::Ordering, fmt::Display};
 
 /// A task that needs to be done
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
@@ -93,14 +93,15 @@ impl TodoList {
     pub fn get_task(&mut self) -> Option<Todo> {
         self.items.pop()
     }
+}
 
-    /// Show all tasks
-    pub fn show_tasks(&mut self) {
-        //self.items.sort_unstable()
-        println!("Here are all of your tasks");
-        for item in &self.items {
-            println!("{:?}", item);
-        }
+/// Show all tasks
+impl Display for TodoList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Here are all of your tasks")?;
+        self.items
+            .iter()
+            .try_for_each(|todo| writeln!(f, "{todo:?}"))
     }
 }
 
