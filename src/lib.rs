@@ -35,6 +35,7 @@ impl Todo {
             title: title.to_string(),
             description: "".to_string(),
             urgency: Urgency::Medium,
+            is_special: false,
         }
     }
 }
