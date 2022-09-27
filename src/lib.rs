@@ -110,6 +110,15 @@ impl TodoList {
     pub fn get_task(&mut self) -> Option<Todo> {
         self.items.pop()
     }
+
+    /// Show all tasks
+    pub fn show_tasks(&mut self) {
+        //self.items.sort_unstable()
+        printnln!("Here are all of your tasks");
+        for item in self.items {
+            println!("{:?}", item);
+        }
+    }
 }
 
 impl Default for TodoList {
