@@ -114,7 +114,7 @@ impl TodoList {
     /// Show all tasks
     pub fn show_tasks(&mut self) {
         //self.items.sort_unstable()
-        printnln!("Here are all of your tasks");
+        println!("Here are all of your tasks");
         for item in self.items {
             println!("{:?}", item);
         }
