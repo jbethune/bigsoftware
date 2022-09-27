@@ -6,7 +6,7 @@
 //!
 //! (foo)[bar.html]
 //!
-//! ```
+//! ``` 
 
 #![deny(missing_docs)]
 #![deny(clippy::doc_markdown)]
@@ -14,30 +14,33 @@
 use std::cmp::Ordering;
 
 /// A task that needs to be done
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Default, PartialEq, Eq, Clone)]
 pub struct Todo {
     // TODO add assigned user
     title: String,
     description: String,
     urgency: Urgency,
+    is_special: bool,
 }
 
 impl Todo {
     /// Create a new TODO item
-    pub fn new(title: &str, description: &str, urgency: Urgency) -> Self {
+    pub fn new(title: &str, description: &str, urgency: Urgency, is_special: bool) -> Self {
         Self {
             title: title.to_string(),
             description: description.to_string(),
             urgency,
+            is_special,
         }
     }
 }
 
 /// Describe  how urgently something needs to be done
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 pub enum Urgency {
     // TODO more variants, TODO maybe different ordering?
     /// No deadline
+    #[default]
     NonExisting,
     /// Should be done evenually
     Low,
@@ -85,7 +88,7 @@ impl PartialOrd for Todo {
 }
 
 /// A list of TODO items
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct TodoList {
     items: Vec<Todo>,
 }
@@ -97,8 +100,9 @@ impl TodoList {
     }
 
     /// Add a task to the list
-    pub fn add_task(&mut self, title: &str, description: &str, urgency: Urgency) {
-        self.items.push(Todo::new(title, description, urgency));
+    pub fn add_task(&mut self, title: &str, description: &str, urgency: Urgency, is_special: bool) {
+        self.items
+            .push(Todo::new(title, description, urgency, is_special));
         self.items.sort_unstable(); // TODO find insertion position instead
     }
 
@@ -115,14 +119,25 @@ mod tests {
     #[test]
     fn test_sorting() {
         let mut tasks = vec![
-            Todo::new("Prepare talk", "Talk about CI", Urgency::ExtremlyUrgent),
+            Todo::new(
+                "Prepare talk",
+                "Talk about CI",
+                Urgency::ExtremlyUrgent,
+                false,
+            ),
             Todo::new(
                 "Learn Fortran",
                 "Because Dinosaurs are cool",
                 Urgency::NonExisting,
+                true,
             ),
-            Todo::new("Buy groceries", "Need to eat", Urgency::High),
-            Todo::new("Do the dishes", "Almost out of plates", Urgency::Medium),
+            Todo::new("Buy groceries", "Need to eat", Urgency::High, true),
+            Todo::new(
+                "Do the dishes",
+                "Almost out of plates",
+                Urgency::Medium,
+                false,
+            ),
         ];
         tasks.sort_unstable();
         assert_eq!(tasks[3].title, "Prepare talk");
@@ -138,16 +153,19 @@ mod tests {
             "Write a TODO list",
             "good examples are hard to find",
             Urgency::Medium,
+            false,
         );
         list.add_task(
             "Teach rustaceans to do CI",
             "So that open source will be even better",
             Urgency::High,
+            false,
         );
         list.add_task(
             "Find more silly examples",
             "Because short lists are boring",
             Urgency::Low,
+            false,
         );
         assert_eq!(list.get_task().unwrap().title, "Teach rustaceans to do CI");
         assert_eq!(list.get_task().unwrap().title, "Write a TODO list");
