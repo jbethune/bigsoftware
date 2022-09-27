@@ -2,11 +2,6 @@
 //!
 //! A lot of people are supposed to work together on building this.
 //!
-//! Let's break the docstring
-//!
-//! (foo)[bar.html]
-//!
-//! ```
 
 #![deny(missing_docs)]
 #![deny(clippy::doc_markdown)]
@@ -88,7 +83,7 @@ impl PartialOrd for Todo {
 }
 
 /// A list of TODO items
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct TodoList {
     items: Vec<Todo>,
 }
@@ -96,7 +91,7 @@ pub struct TodoList {
 impl TodoList {
     /// Create a new list
     pub fn new() -> Self {
-        Self { items: vec![] }
+        Self::default()
     }
 
     /// Add a task to the list
@@ -109,12 +104,6 @@ impl TodoList {
     /// Get the most urgent task right now
     pub fn get_task(&mut self) -> Option<Todo> {
         self.items.pop()
-    }
-}
-
-impl Default for TodoList {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
