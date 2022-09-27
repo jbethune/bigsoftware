@@ -9,7 +9,7 @@
 use std::cmp::Ordering;
 
 /// A task that needs to be done
-#[derive(Debug, Default, PartialEq, Eq, Clone)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Todo {
     // TODO add assigned user
     title: String,
@@ -31,7 +31,7 @@ impl Todo {
 }
 
 /// Describe  how urgently something needs to be done
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Urgency {
     // TODO more variants, TODO maybe different ordering?
     /// No deadline
@@ -45,28 +45,6 @@ pub enum Urgency {
     High,
     /// Drop everything and do this now!
     ExtremlyUrgent,
-}
-
-impl Ord for Urgency {
-    fn cmp(&self, other: &Self) -> Ordering {
-        fn value(urgency: &Urgency) -> usize {
-            // TODO technically not needed
-            match urgency {
-                Urgency::NonExisting => 0,
-                Urgency::Low => 1,
-                Urgency::Medium => 2,
-                Urgency::High => 3,
-                Urgency::ExtremlyUrgent => 4,
-            }
-        }
-        value(self).cmp(&value(other))
-    }
-}
-
-impl PartialOrd for Urgency {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
 }
 
 impl Ord for Todo {
