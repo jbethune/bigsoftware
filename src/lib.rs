@@ -28,6 +28,16 @@ impl Todo {
             is_special,
         }
     }
+
+    /// Create a new TODO item with default description and default urgency
+    pub fn by_title(title: &str) -> Self {
+        Self {
+            title: title.to_string(),
+            description: "".to_string(),
+            urgency: Urgency::Medium,
+            is_special: false,
+        }
+    }
 }
 
 /// Describe  how urgently something needs to be done
