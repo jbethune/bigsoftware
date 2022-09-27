@@ -5,6 +5,8 @@
 //! Let's break the docstring
 //!
 //! (foo)[bar.html]
+//!
+//! ```
 
 #![deny(missing_docs)]
 
@@ -15,7 +17,7 @@ use std::cmp::Ordering;
 pub struct Todo {
     // TODO add assigned user
     title: String,
-description: String,
+    description: String,
     urgency: Urgency,
 }
 
