@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+cargo fmt --check
+cargo doc
+cargo clippy
+cargo test
